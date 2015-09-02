@@ -7,6 +7,7 @@ class Item {
   String title;
   Uri link;
   String description;
+  String creator;
   String author;
   List<Category> categories;
   Uri comments;
@@ -14,8 +15,10 @@ class Item {
   Guid guid;
   DateTime pubDate;
   Source source;
+  XmlElement xml;
 
   Item.fromXml(XmlElement element) {
+    xml = element;
     title = _getValue("title", element);
     description = _getValue("description", element);
     if ((title == null || title == "") &&
@@ -35,6 +38,7 @@ class Item {
     guid = new Guid.fromXml(_get("guid", element));
     pubDate = _parseDate(_getValue("pubDate", element));
     source = new Source.fromXml(_get("source", element));
+    creator = _getValue("creator", element);
   }
 
   String toString() {
